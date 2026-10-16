@@ -1,5 +1,6 @@
 import express from 'express'
 import cors from 'cors'
+import { paises, clubes } from './datos.js'
 
 const app = express()
 app.use(cors())
