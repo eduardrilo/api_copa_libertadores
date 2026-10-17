@@ -7,6 +7,7 @@ app.use(cors())
 
 const PORT = 3000
 
+// Ruta principal de bienvenida
 app.get('/', (req, res) => {
   res.json({ mensaje: 'API Copa Libertadores funcionando' })
 })
@@ -27,7 +28,9 @@ app.get('/api/clubes', (req, res) => {
 
   // Si el país no existe, devolver error 404
   if (!paisEncontrado) {
-    return res.status(404).json({ error: 'No existe el país solicitado' })
+    return res.status(404).json({
+      error: 'No existe el país solicitado'
+    })
   }
 
   // Filtrar los clubes que pertenecen a ese país
@@ -42,15 +45,40 @@ app.get('/api/clubes', (req, res) => {
 app.get('/api/clubes/:id', (req, res) => {
   const id = Number(req.params.id)
 
+  // Buscar el club por su ID
   const club = clubes.find(c => c.id === id)
 
+  // Si el club no existe, devolver error 404
   if (!club) {
-    return res.status(404).json({ error: `No existe el club ${id}` })
+    return res.status(404).json({
+      error: `No existe el club ${req.params.id}`
+    })
   }
 
   res.json(club)
 })
 
+// Obtener los títulos de un club por su nombre
+app.get('/api/titulos/:club', (req, res) => {
+  const nombreClub = req.params.club.toLowerCase()
+
+  // Buscar el club por su nombre
+  const clubEncontrado = clubes.find(c =>
+    c.nombre.toLowerCase() === nombreClub
+  )
+
+  // Si el club no existe, devolver error 404
+  if (!clubEncontrado) {
+    return res.status(404).json({
+      error: 'No existe el club solicitado'
+    })
+  }
+
+  // Devolver los años de los títulos
+  res.json(clubEncontrado.titulos)
+})
+
+// Iniciar el servidor
 app.listen(PORT, () => {
-  console.log(`🏆 API escuchando en http://localhost:${PORT}`)
+  console.log(` API escuchando en http://localhost:${PORT}`)
 })
