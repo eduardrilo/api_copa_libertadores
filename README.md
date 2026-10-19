@@ -63,4 +63,4 @@ Los datos se encuentran en `datos.js` e incluyen 16 clubes pertenecientes a 5 pa
 
 ## Video demostrativo
 
-Pendiente de incorporar el enlace al video de demostración y explicación de la API.
+[Ver demostración de la API en YouTube](https://youtu.be/o3LRcG_jfbI)
